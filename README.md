@@ -6,4 +6,6 @@
            \/|__|        \/                                    \/      
 ```
 
-Despues de descargar `npm install`
+Despues de descargar `npm install`.
+
+Para ejecutar `npm start`.
