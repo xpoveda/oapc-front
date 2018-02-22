@@ -1,0 +1,11 @@
+<h1>Estás en login</h1>
+<p> Token de acceso: {{mitoken?.access_token}} </p>
+<p> Expira en: {{mitoken?.expires_in}} </p>
+<p></p>
+<p *ngFor="let mi1 of miuserall">
+    {{mi1.id}} -  {{mi1.username}}
+      <li *ngFor="let mi2 of mi1.authorities"> 
+            {{mi2.authority}}
+      </li>
+</p>
+
