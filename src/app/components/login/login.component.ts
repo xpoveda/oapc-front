@@ -4,8 +4,8 @@ import { AuthorizationService }  from './../../services/authorization.service';
 
 import { Component, OnInit }     from '@angular/core';
 
-import { TokenResponse }         from './../../model/token-response';
-import { UsersResponse }         from './../../interfaces/root-authorities';
+import { TokenResponse }         from './../../interfaces/token-response';
+import { UsersResponse }         from './../../interfaces/users-response';
 
 @Component({
   selector: 'app-login',
@@ -23,52 +23,87 @@ export class LoginComponent implements OnInit {
 
   constructor( private AuthorizationService: AuthorizationService, 
                private UserService: UserService 
-             ) { }
+             ) 
+  { }
 
-  ngOnInit() {
+  ngOnInit() 
+  { }
 
-    
-    this.AuthorizationService.login( "admin", "123" )
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  login(user:string, password:string)
+  {
+    this.AuthorizationService.login( user, password)
       .subscribe( respuesta => { this.mitoken = respuesta;
-                                 localStorage.setItem("tk", this.mitoken.access_token);
+                                 console.log("LOGIN OK " + user);
+                                 localStorage.setItem("TOKEN", this.mitoken.access_token);
                                },
+                  error =>     { console.log("LOGIN NOK" + user);
+                                 localStorage.removeItem("TOKEN");
+                                 console.log(error); }
+      );
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  whoami()
+  {
+    if (this.AuthorizationService.is_logged())
+      this.AuthorizationService.whoami()
+        .subscribe ( respuesta => { this.miwhoami = respuesta;
+                                    console.log(this.miwhoami); 
+                                  },
+                    error =>      { console.log(error); }      
+        );
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  change_password(oldpass:string, newpass:string)
+  {
+    if (this.AuthorizationService.is_logged())
+      this.AuthorizationService.change_password(oldpass, newpass)
+      .subscribe( respuesta => { this.mirespuesta = respuesta;
+                                 console.log(this.mirespuesta);
+                              },
                   error =>     {  console.log(error); }
       );
-    
+  }
 
-    // Hay que recordar que los observables devuelven datos que hasta que no esten mapeados
-    // pueden devolver error en la consola, no en la vista que siempre se devolveran correctamente
+  ////////////////////////////////////////////////////////////////////////////////////////
 
-    this.AuthorizationService.whoami()
-      .subscribe ( respuesta => { this.miwhoami = respuesta;
-                                  console.log(this.miwhoami); 
-                                },
-                  error =>      { console.log(error); }      
+  refresh()
+  {
+    if (this.AuthorizationService.is_logged())
+      this.AuthorizationService.refresh()
+      .subscribe( respuesta => { this.mitoken = respuesta;
+                                localStorage.setItem("TOKEN", this.mitoken.access_token);
+                              },
+                  error =>     {  console.log(error); }
       );
+  }
 
+  ////////////////////////////////////////////////////////////////////////////////////////
+
+  logout()
+  {
+    if (this.AuthorizationService.is_logged())
+      this.AuthorizationService.logout();
+  }
+
+  ///////////////////////////////////////////////////////////////////////////////////////
+
+  userall()
+  {
+    if (this.AuthorizationService.is_logged())
       this.UserService.userall()
       .subscribe ( respuesta => { this.miuserall = respuesta;
                                   console.log(this.miuserall); 
                                 },
                   error =>      { console.log(error); }      
       );
-
-      /*
-      this.AuthorizationService.refresh()
-      .subscribe( respuesta => { this.mitoken = respuesta;
-                                 localStorage.setItem("tk", this.mitoken.access_token);
-                               },
-                  error =>     {  console.log(error); }
-      );
-      */
-
-      /*
-      this.AuthorizationService.change_password("456", "123")
-      .subscribe( respuesta => { this.mirespuesta = respuesta;
-                                 console.log(this.mirespuesta);
-                               },
-                  error =>     {  console.log(error); }
-      );
-      */
   }
+
 }

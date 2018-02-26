@@ -1,12 +1,4 @@
 
-// Coger el json de chrome --> Network --> response
-// http://json2ts.com/
-
-
-export interface Authority {
-    authority: string;
-}
-
 export interface UsersResponse {
     id: number;
     username: string;
@@ -18,3 +10,9 @@ export interface UsersResponse {
     lastPasswordResetDate: any;
     authorities: Authority[];
 }
+
+export interface Authority {
+    authority: string;
+}
+
+// http://json2ts.com/

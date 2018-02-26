@@ -1,7 +1,47 @@
 <h1>Estás en login</h1>
-<p> Token de acceso: {{mitoken?.access_token}} </p>
-<p> Expira en: {{mitoken?.expires_in}} </p>
+
+<input name="Usuario"    type="email"    placeholder="Tu usuario"    #user>
 <p></p>
+<input name="Contraseña" type="password" placeholder="Tu contraseña" #password>
+<p></p>
+
+<button (click)="login(user.value, password.value)">
+      login            
+</button>
+
+<button (click)="whoami()">
+      whoami           
+</button>
+
+<button (click)="refresh()">
+      refresh          
+</button>
+
+<button (click)="userall()">                        
+      userall          
+</button>
+
+<button (click)="logout()">
+      logout           
+</button>
+
+<hr>
+
+<input name="OldPass"    type="password" placeholder="Tu contraseña antigua" #oldpass>
+<p></p>
+<input name="NewPass"    type="password" placeholder="Tu contraseña nueva"   #newpass>
+<p></p>
+
+<button (click)="change_password(oldpass.value, newpass.value)">
+      change password  
+</button>
+
+<hr>
+
+<p></p>
+<p> {{mitoken?.access_token}} </p>
+<p></p>
+
 <p *ngFor="let mi1 of miuserall">
     {{mi1.id}} -  {{mi1.username}}
       <li *ngFor="let mi2 of mi1.authorities"> 
