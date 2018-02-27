@@ -12,12 +12,15 @@ import { HeaderComponent }        from './components/header/header.component';
 import { FooterComponent }        from './components/footer/footer.component';
 import { PageNotFoundComponent }  from './components/page-not-found/page-not-found.component';
 import { LoginComponent}          from './components/login/login.component';
+import { LogoutComponent }        from './components/logout/logout.component';
 import { NotesComponent }         from './components/notes/notes.component';
 
-import { ApiUrlConfigService }     from './services/api-url-config.service';
-import { AuthorizationService }    from './services/authorization.service';
-import { UserService }             from './services/user.service';
-import { NotesService }            from './services/notes.service';
+import { ApiUrlConfigService }    from './services/api-url-config.service';
+import { AuthorizationService }   from './services/authorization.service';
+import { UserService }            from './services/user.service';
+import { NotesService }           from './services/notes.service';
+import { TrazaService }           from './services/traza.service';
+
 
 @NgModule({
   declarations: [ 
@@ -27,6 +30,7 @@ import { NotesService }            from './services/notes.service';
     FooterComponent,
     PageNotFoundComponent,
     LoginComponent,
+    LogoutComponent,
     NotesComponent
   ],
 
@@ -37,10 +41,11 @@ import { NotesService }            from './services/notes.service';
   ],
 
   providers: [
+    TrazaService,
     ApiUrlConfigService, 
     AuthorizationService, 
     UserService, 
-    NotesService
+    NotesService,
   ],
 
   bootstrap: [AppComponent]

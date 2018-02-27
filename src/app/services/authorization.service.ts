@@ -1,120 +1,130 @@
-import { Injectable }              from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable }              from 'rxjs/Rx';
 
-import { Router }                  from '@angular/router'; 
+import { Injectable }               from '@angular/core';
+import { HttpClient, HttpHeaders }  from '@angular/common/http';
+import { Router }                   from '@angular/router';
+import { Observable }               from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-  //////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
-import { ApiUrlConfigService }     from './api-url-config.service';
+import { ApiUrlConfigService }      from './api-url-config.service';
+import { TrazaService }             from './traza.service';
 
-import { TokenResponse }           from '../interfaces/token-response';
+import { TokenResponse }            from '../interfaces/token-response';
+import { MyUser }                   from './../interfaces/my-user';
 
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 
 @Injectable()
 export class AuthorizationService {
 
-  constructor(private http                : HttpClient, 
+  private myuser: MyUser
+
+  constructor(private http                : HttpClient,
               private router              : Router,
-              private ApiUrlConfigService : ApiUrlConfigService
-             ) 
+              private ApiUrlConfigService : ApiUrlConfigService,
+              private TrazaService        : TrazaService) 
   { }
 
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
-  login(user: string, pass: string): Observable<TokenResponse> {
-
-    return this.http.post( this.ApiUrlConfigService._loginURL,
-                           { "username": user, "password": pass },
-                           { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
-            .map(respuesta => respuesta)
-            .catch((error: any) => Observable.throw(error));
+  login(user: string, pass: string): Observable<TokenResponse> 
+  {
+    return this.http.post(this.ApiUrlConfigService._loginURL,
+                          { "username": user, "password": pass },
+                          { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+                    .map(respuesta => respuesta)
+                    .catch((error: any) => Observable.throw(error));
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  whoami(): Observable<any> {
-
-    return this.http.get( this.ApiUrlConfigService._whoamiURL, 
-                          this.header_token() )
-            .map(respuesta => respuesta)
-            .catch((error: any) => Observable.throw(error));
+  logout() 
+  {
+    //this.TrazaService.log("AUTHSERVICE", "logout", "USUARIO DESCONECTADO");
+    localStorage.removeItem('USER');
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  refresh(): Observable<TokenResponse> {
-
-    return this.http.post( this.ApiUrlConfigService._refreshURL,
-                           { },
-                           this.header_token() )
-            .map(respuesta => respuesta)
-            .catch((error: any) => Observable.throw(error));
+  whoami(): Observable<any> 
+  {
+    return this.http.get(this.ApiUrlConfigService._whoamiURL,
+                         this.header_token())
+                    .map(respuesta => respuesta)
+                    .catch((error: any) => Observable.throw(error));
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  change_password(oldpass: string, newpass: string): Observable<any> {
+  refresh(): Observable<TokenResponse> 
+  {
+    return this.http.post(this.ApiUrlConfigService._refreshURL,
+                          {},
+                          this.header_token())
+                    .map(respuesta => respuesta)
+                    .catch((error: any) => Observable.throw(error));
+  }
 
-    return this.http.post(  this.ApiUrlConfigService._change_passwordURL,
-                            { "oldPassword": oldpass, "newPassword" : newpass },
-                            this.header_token() )
-            .map(respuesta => respuesta)
-            .catch((error: any) => Observable.throw(error));
-  } 
-  
-    //////////////////////////////////////////////////////////////////////////////////////
-  
-    is_logged()
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  change_password(oldpass: string, newpass: string): Observable<any> 
+  {
+    return this.http.post(this.ApiUrlConfigService._change_passwordURL,
+                          { "oldPassword": oldpass, "newPassword": newpass },
+                          this.header_token())
+                      .map(respuesta => respuesta)
+                      .catch((error: any) => Observable.throw(error));
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  is_logged() 
+  {
+    if (localStorage.getItem('USER')) {
+      //this.TrazaService.log("AUTHSERVICE", "islogged", "USUARIO CONECTADO");
+      return true;
+    }
+    else {
+      //this.TrazaService.log("AUTHSERVICE", "islogged", "USUARIO NO CONECTADO");
+      return false;
+    }
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  header_token() 
+  {
+    if (this.is_logged())
     {
-      if (localStorage.getItem('TOKEN'))
-      {
-        console.log("USUARIO CONECTADO");
-        return true;
-      }
-      else
-      {
-        console.log("USUARIO NO CONECTADO");
-        return false;
-      }
+      this.myuser = JSON.parse(localStorage.getItem("USER"));
+
+      return {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.myuser.token })
+      };
     }
+    else
+      return null;
+  }
   
-    //////////////////////////////////////////////////////////////////////////////////////
-  
-    logout()
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  user_name():string
+  {
+    if (this.is_logged())
     {
-      console.log("USUARIO DESCONECTADO");
-      localStorage.removeItem('TOKEN');
-      this.router.navigateByUrl("/login");
-
-      // Esto se necesita para refrescar totalmente la pagina cuando venimos de la misma
-      window.location.reload();
+      this.myuser = JSON.parse(localStorage.getItem("USER"));
+      return (this.myuser.firstname + this.myuser.lastname);
     }
-
-    
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    header_token()
-    { 
-      if (localStorage.getItem('TOKEN'))
-        return { headers: new HttpHeaders ( { 'Content-Type' : 'application/json' , 
-                                              'Authorization': 'Bearer ' + localStorage.getItem('TOKEN') 
-                                            }
-                                          ) 
-                }; 
-      else  
-        return null;
-    }
+  }
 }
-
-
-
-

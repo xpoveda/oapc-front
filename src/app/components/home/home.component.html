@@ -1,1 +1,22 @@
-<h1>Estás en la pagina principal</h1>
+<h1>Estás en home</h1>
+
+<div *ngIf="islogged;else else_code">
+    <h2>Hola {{user_name}}</h2>
+
+    <button (click)="userall()">userall</button>
+    <button (click)="refresh()">refresh</button>
+
+    <p> {{mitoken?.access_token}} </p>
+
+    <p *ngFor="let mi1 of miuserall">
+        {{mi1.id}} - {{mi1.username}}
+        <li *ngFor="let mi2 of mi1.authorities">
+            {{mi2.authority}}
+        </li>
+    </p>
+</div>
+
+<ng-template #else_code>
+    <p>No hay ningún usuario autentificado, por favor ves a la página de login</p>
+</ng-template>
+

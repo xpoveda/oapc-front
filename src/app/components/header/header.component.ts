@@ -1,4 +1,9 @@
+import { Observable } from 'rxjs/Rx';
+
 import { Component, OnInit } from '@angular/core';
+
+import { AuthorizationService } from '../../services/authorization.service';
+import { TrazaService }         from '../../services/traza.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +12,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  private islogged;
 
-  ngOnInit() {
+  constructor(private AuthorizationService : AuthorizationService,
+              private TrazaService         : TrazaService) 
+  { }
+
+  ngOnInit() 
+  {
+    this.TrazaService.log("HEADER", "ngOnInit", "");
+
+    Observable.interval(1000).subscribe ( x => {
+      this.islogged = this.AuthorizationService.is_logged();
+    });
+
   }
 
 }
