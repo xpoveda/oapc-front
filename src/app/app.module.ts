@@ -1,10 +1,14 @@
 
-
 import { BrowserModule }          from '@angular/platform-browser';
 import { NgModule }               from '@angular/core';
 import { HttpClientModule }       from '@angular/common/http';
 
-import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+import { FormsModule }            from '@angular/forms';
+import { ReactiveFormsModule }    from '@angular/forms';
+
+import { CollapseModule }         from 'ngx-bootstrap';
+import { BsDropdownModule }       from 'ngx-bootstrap';
+import { ModalModule  }           from 'ngx-bootstrap';
 
 import { AppComponent }           from './app.component';
 import { AppRoutingModule }       from './app-routing.module';
@@ -17,12 +21,17 @@ import { LoginComponent}          from './components/login/login.component';
 import { LogoutComponent }        from './components/logout/logout.component';
 import { NotesComponent }         from './components/notes/notes.component';
 
+import { ModalNoteComponent }     from './components/modal-note/modal-note.component';
+
 import { ApiUrlConfigService }    from './services/api-url-config.service';
 import { AuthorizationService }   from './services/authorization.service';
 import { UserService }            from './services/user.service';
 import { NotesService }           from './services/notes.service';
 import { TrazaService }           from './services/traza.service';
 
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
 
 @NgModule({
   declarations: [ 
@@ -33,15 +42,21 @@ import { TrazaService }           from './services/traza.service';
     PageNotFoundComponent,
     LoginComponent,
     LogoutComponent,
-    NotesComponent
+    NotesComponent,
+    ModalNoteComponent
   ],
+
+  entryComponents: [ModalNoteComponent],
 
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     CollapseModule.forRoot(), 
-    BsDropdownModule.forRoot()
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot()
   ],
 
   providers: [

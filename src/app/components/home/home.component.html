@@ -6,12 +6,14 @@
     <h2>Hola {{user_name}}</h2>
 
     <button (click)="userall()">userall</button>
-    <button (click)="refresh()">refresh</button>
+    <button (click)="refresh()">refresh token</button>
 
+    <hr>
     <p> {{mitoken?.access_token}} </p>
 
+    <hr>
     <p *ngFor="let mi1 of miuserall">
-        {{mi1.id}} - {{mi1.username}}
+        {{mi1.id}} - {{mi1.username}} - {{mi1.firstName}} - {{mi1.lastName}} - {{mi1.email}}
         <li *ngFor="let mi2 of mi1.authorities">
             {{mi2.authority}}
         </li>

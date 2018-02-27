@@ -1,13 +1,24 @@
 
-import { Component, OnInit }    from '@angular/core';
 
-import { Observable }           from 'rxjs/Rx';
+import { Component, OnInit }         from '@angular/core';
+import { TemplateRef }               from '@angular/core';
 
-import { AuthorizationService } from '../../services/authorization.service';
-import { TrazaService }         from './../../services/traza.service';
+import { Observable }                from 'rxjs/Rx';
 
-import { NotesService }         from '../../services/notes.service';
-import { NotesResponse }        from '../../interfaces/notes-response';
+import { BsModalService }            from 'ngx-bootstrap/modal';
+import { BsModalRef }                from 'ngx-bootstrap/modal/bs-modal-ref.service';
+
+import { AuthorizationService }      from '../../services/authorization.service';
+import { TrazaService }              from '../../services/traza.service';
+import { NotesService }              from '../../services/notes.service';
+
+import { NotesResponse }             from '../../interfaces/notes-response';
+
+import { ModalNoteComponent }        from '../modal-note/modal-note.component';
+
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
 
 @Component({
   selector: 'app-notes',
@@ -16,33 +27,38 @@ import { NotesResponse }        from '../../interfaces/notes-response';
 })
 export class NotesComponent implements OnInit {
 
+  // islogged
   private islogged;
 
+  // interfaz de respuesta
   misnotes: NotesResponse[];
   minote  : NotesResponse;
 
+  // doble data binding formulario
+  private ftitulo;
+  private fcontenido;
+
+  // modal
+  bsModalRef: BsModalRef;
+
   constructor( private AuthorizationService: AuthorizationService, 
                private NotesService        : NotesService, 
-               private TrazaService        : TrazaService ) 
+               private TrazaService        : TrazaService,
+               private modalService        : BsModalService ) 
   { }
 
   ngOnInit() 
   {
-
     this.TrazaService.log("NOTES", "ngOnInit", "");
+    //setInterval( () => this.ftitulo =  '' + Math.random(), 1000);
 
-    Observable.interval(100).subscribe ( x => {
+     Observable.interval(100).subscribe ( x => {
       this.islogged  = this.AuthorizationService.is_logged();
     });
-
-    //this.putNote(28,"28 bis","28 bis bis");
-    //this.deleteNote(27);
-    this.getNotes();
-    //this.getNote(100);
-    //this.postNote("hola", "que tal");
-    //this.putNote(1,"modificada primera nota","otro campo");
   }
   
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
   getNotes()
@@ -71,12 +87,15 @@ export class NotesComponent implements OnInit {
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  postNote(title: string, content: string)
+  postNote(title: string, content: string, refresh?: boolean)
   {
     if (this.AuthorizationService.is_logged())
       this.NotesService.postNote(title, content)
       .subscribe ( respuesta => { this.minote = respuesta;
                                   this.TrazaService.dato("NOTES", "API POSTNOTE OK", this.minote);
+
+                                  if (refresh)
+                                    this.getNotes();
                                 },
                   error =>      { this.TrazaService.error("NOTES", "API POSTNOTE KO", error); }    
       );
@@ -84,12 +103,15 @@ export class NotesComponent implements OnInit {
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  putNote(id: number, title: string, content: string)
+  putNote(id: number, title: string, content: string, refresh?: string)
   {
     if (this.AuthorizationService.is_logged())
       this.NotesService.putNote(id, title, content)
       .subscribe ( respuesta => { this.minote = respuesta;
                                   this.TrazaService.dato("NOTES", "API PUTNOTE OK", this.minote);
+                                  
+                                  if (refresh)
+                                    this.getNotes();
                                 },
                   error =>      { this.TrazaService.error("NOTES", "API PUTNOTE KO", error); }      
       );
@@ -97,12 +119,15 @@ export class NotesComponent implements OnInit {
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  deleteNote(id: number)
+  deleteNote(id: number, refresh?:boolean)
   {
     if (this.AuthorizationService.is_logged())
       this.NotesService.deleteNote(id)
       .subscribe ( respuesta => { this.minote = respuesta;
                                   this.TrazaService.dato("NOTES", "API DELETE OK", this.minote);
+
+                                  if (refresh)
+                                    this.getNotes();
                                 },
                   error =>      { this.TrazaService.error("NOTES", "API DELETE KO", error); }     
       );
@@ -110,4 +135,51 @@ export class NotesComponent implements OnInit {
 
   //////////////////////////////////////////////////////////////////////////////////////
 
+  actionGetNotes()
+  {
+    //this.getNotes();
+    //this.getNote(100);
+
+    this.getNotes();
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  actionPostNote(formulario)
+  {
+    //this.postNote("hola", "que tal");
+
+    //console.log(formulario);
+    //console.log(formulario.controls['titulo'].value);
+    //console.log(formulario.controls['contenido'].value);
+
+    this.postNote(this.ftitulo,this.fcontenido, true)
+
+    this.ftitulo    = "";
+    this.fcontenido = ""; 
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+  
+  actionPutNote(note)
+  {
+    //this.putNote(1,"modificada primera nota","otro campo");
+
+    const initialState = {
+      list: [ JSON.stringify(note) ],
+      title: 'Modificar Note'
+    };
+    this.bsModalRef = this.modalService.show(ModalNoteComponent, {initialState});
+    this.bsModalRef.content.closeBtnName = 'Cerrar';
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  actionDeleteNote(note)
+  {
+    //this.deleteNote(1);
+
+    this.deleteNote(note.id, true)
+  }
 }
+  /////////////////////////////////////////////////////////////////////////////////////////

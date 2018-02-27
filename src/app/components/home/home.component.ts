@@ -1,5 +1,4 @@
 
-
 import { Component, OnInit }          from '@angular/core';
 import { Router }                     from '@angular/router';
 
@@ -10,6 +9,7 @@ import { UserService }                from '../../services/user.service';
 import { TrazaService }               from '../../services/traza.service';
 
 import { TokenResponse }              from '../../interfaces/token-response';
+import { UsersResponse}               from '../../interfaces/users-response';
 import { MyUser }                     from '../../interfaces/my-user';
 
 @Component({
@@ -26,12 +26,13 @@ export class HomeComponent implements OnInit {
 
   private islogged;
 
-  mitoken      : TokenResponse;
   mirespuesta  : any;
+
+  mitoken      : TokenResponse;
+  miuserall    : UsersResponse[];
   miusuario    : MyUser;
 
   user_name    : string;
-
 
   constructor( private router               : Router, 
                private AuthorizationService : AuthorizationService, 
@@ -64,8 +65,8 @@ export class HomeComponent implements OnInit {
   {
     if (this.AuthorizationService.is_logged())
       this.UserService.userall()
-      .subscribe ( respuesta => { this.mirespuesta = respuesta;
-                                  this.TrazaService.dato("HOME", "API USERALL OK", this.mirespuesta);
+      .subscribe ( respuesta => { this.miuserall = respuesta;
+                                  this.TrazaService.dato("HOME", "API USERALL OK", this.miuserall);
                                 },
                   error =>      { this.TrazaService.error("HOME", "API USERALL KO", error); }      
       );
