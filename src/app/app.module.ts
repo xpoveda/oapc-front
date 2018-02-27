@@ -4,6 +4,8 @@ import { BrowserModule }          from '@angular/platform-browser';
 import { NgModule }               from '@angular/core';
 import { HttpClientModule }       from '@angular/common/http';
 
+import { CollapseModule, BsDropdownModule } from 'ngx-bootstrap';
+
 import { AppComponent }           from './app.component';
 import { AppRoutingModule }       from './app-routing.module';
 
@@ -37,7 +39,9 @@ import { TrazaService }           from './services/traza.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CollapseModule.forRoot(), 
+    BsDropdownModule.forRoot()
   ],
 
   providers: [

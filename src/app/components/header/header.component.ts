@@ -13,6 +13,7 @@ import { TrazaService }         from '../../services/traza.service';
 export class HeaderComponent implements OnInit {
 
   private islogged;
+  private isCollapsed;
 
   constructor(private AuthorizationService : AuthorizationService,
               private TrazaService         : TrazaService) 
@@ -20,12 +21,13 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() 
   {
-    this.TrazaService.log("HEADER", "ngOnInit", "");
+    //this.TrazaService.log("HEADER", "ngOnInit", "");
 
     Observable.interval(1000).subscribe ( x => {
       this.islogged = this.AuthorizationService.is_logged();
     });
 
+    this.isCollapsed = true;
   }
 
 }

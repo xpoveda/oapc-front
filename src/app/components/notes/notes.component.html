@@ -1,18 +1,32 @@
-<h1>Estás en notes</h1>
-
-<div *ngIf="islogged;else else_code">
-    <h2>Prueba notes</h2>
-    <p *ngFor="let note of misnotes">
-        {{note?.id}} -  {{note?.title}} - {{note?.content}}
-    </p>
-
-    <h2>Prueba note</h2>
-    <p>
-        {{minote?.id}} -  {{minote?.title}} - {{minote?.content}}
-    </p>
+<div class="container">
+    <h1>Estás en notes</h1>
 </div>
 
+
+<div *ngIf="islogged;else else_code" class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titulo</th>
+                <th>Contenido</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let note of misnotes">
+                <td>{{note?.id}}</td>
+                <td>{{note?.title}}</td>
+                <td>{{note?.content}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
 <ng-template #else_code>
-    <p>No hay ningún usuario autentificado, por favor ves a la página de login</p>
+    <div class="container">
+        <p>No hay ningún usuario autentificado, por favor ves a la página de login</p>
+    </div>
 </ng-template>
+
 

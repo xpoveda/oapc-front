@@ -1,6 +1,8 @@
-<h1>Estás en home</h1>
+<div class="container">
+    <h1>Estás en home</h1>
+</div>
 
-<div *ngIf="islogged;else else_code">
+<div *ngIf="islogged;else else_code" class="container">
     <h2>Hola {{user_name}}</h2>
 
     <button (click)="userall()">userall</button>
@@ -17,6 +19,9 @@
 </div>
 
 <ng-template #else_code>
-    <p>No hay ningún usuario autentificado, por favor ves a la página de login</p>
+    <div class="container">
+        <p>No hay ningún usuario autentificado, por favor ves a la página de login</p>
+    </div>
 </ng-template>
+    
 

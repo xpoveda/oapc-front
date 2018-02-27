@@ -124,7 +124,7 @@ export class AuthorizationService {
     if (this.is_logged())
     {
       this.myuser = JSON.parse(localStorage.getItem("USER"));
-      return (this.myuser.firstname + this.myuser.lastname);
+      return (this.myuser.firstname + " " + this.myuser.lastname);
     }
   }
 }

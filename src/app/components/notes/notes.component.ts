@@ -31,7 +31,7 @@ export class NotesComponent implements OnInit {
 
     this.TrazaService.log("NOTES", "ngOnInit", "");
 
-    Observable.interval(1000).subscribe ( x => {
+    Observable.interval(100).subscribe ( x => {
       this.islogged  = this.AuthorizationService.is_logged();
     });
 
