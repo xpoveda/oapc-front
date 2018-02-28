@@ -20,4 +20,12 @@ export class ModalNoteComponent implements  OnInit  {
   ngOnInit() {
     this.list.push('FALTA IMPLEMENTAR');
   }
+
+  actionPutNote(form)
+  {
+    //this.putNote(1,"modificada primera nota","otro campo");
+
+    console.log(form);
+    this.bsModalRef.hide()
+  }
 }
