@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+      <tr>
+          <th>Id</th>
+          <th>Titulo</th>
+          <th>Contenido</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let elemento of elementos">
+          <td>{{elemento?.id}}</td>
+          <td>{{elemento?.title}}</td>
+          <td>{{elemento?.content}}</td>
+          <td>
+              <button type="button" class="btn btn-primary" (click)="actionPutNote(elemento)">Modificar</button>
+          </td>
+          <td>
+              <button type="button" class="btn btn-primary" (click)="actionDeleteNote(elemento)">Borrar</button>
+          </td>
+      </tr>
+  </tbody>
+</table>

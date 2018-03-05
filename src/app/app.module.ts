@@ -29,6 +29,10 @@ import { UserService }            from './services/user.service';
 import { NotesService }           from './services/notes.service';
 import { TrazaService }           from './services/traza.service';
 
+import { Notes2Component }        from './components/notes2/notes2.component';
+import { FormNotesComponent }     from './components/form-notes/form-notes.component';
+import { ListNotesComponent }     from './components/list-notes/list-notes.component';
+
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +47,10 @@ import { TrazaService }           from './services/traza.service';
     LoginComponent,
     LogoutComponent,
     NotesComponent,
-    ModalNoteComponent
+    ModalNoteComponent,
+    Notes2Component,
+    FormNotesComponent,
+    ListNotesComponent
   ],
 
   entryComponents: [ModalNoteComponent],
