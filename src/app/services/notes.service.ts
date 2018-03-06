@@ -40,6 +40,27 @@
 
   //////////////////////////////////////////////////////////////////////////////////////
 
+  getNotesPage(page: number, per_page: number): Observable<NotesResponse[]>
+  {
+    return this.http.get( this.ApiUrlConfigService._getNotesPageURL + "?page=" + page + "&per_page=" + per_page, 
+                          this.AuthorizationService.header_token()
+                        )
+                    .map(respuesta => respuesta)
+                    .catch((error: any) => Observable.throw(error));  
+  }
+
+  getNotesCount(): Observable<number>
+  {
+    return this.http.get( this.ApiUrlConfigService._getNotesCountURL, 
+                          this.AuthorizationService.header_token()
+                        )
+                    .map(respuesta => respuesta)
+                    .catch((error: any) => Observable.throw(error));  
+  }
+
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
   getNote(id:number): Observable<NotesResponse>
   {
     return this.http.get( this.ApiUrlConfigService._getNoteURL + id, 

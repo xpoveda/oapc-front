@@ -12,11 +12,38 @@
           <td>{{elemento?.title}}</td>
           <td>{{elemento?.content}}</td>
           <td>
-              <button type="button" class="btn btn-primary" (click)="actionPutNote(elemento)">Modificar</button>
+              <button type="button" class="btn btn-primary" (click)="actionPut(elemento)">Modificar</button>
           </td>
           <td>
-              <button type="button" class="btn btn-primary" (click)="actionDeleteNote(elemento)">Borrar</button>
+              <button type="button" class="btn btn-primary" (click)="actionDelete(elemento)">Borrar</button>
           </td>
       </tr>
   </tbody>
 </table>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      
+      <li *ngFor="let page_item of page_list" class="page-item">
+          <a class="page-link" role="button" (click)="actionPagination(page_item)">{{page_item}}</a>
+      </li>
+
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+<p>page     : {{page}}      </p>
+<p>per_page : {{per_page}}  </p>
+<p>total_reg: {{total_reg}} </p>
+<p>page_list: {{page_list}} </p>

@@ -1,5 +1,16 @@
 <div class="container">
   <!-- https://stackoverflow.com/questions/36220027/how-to-pass-a-string-value-to-a-component-in-angular2 -->
-  <app-form-notes [titulo_form]="'Titulo notes2'"  (evento_form1)="onclick1($event)"></app-form-notes>     
-  <app-list-notes [elementos]="misnotes" [page]="page" [per_page]="per_page" (evento_list1)="onclick2($event)" (evento_list2)="onclick3($event)"></app-list-notes>
+  <app-form-notes [titulo_form]="'Titulo notes2'"  
+                  (evento_form1)="onClickBuscarForm($event)">
+  </app-form-notes>     
+
+  <app-list-notes [elementos]="misnotes" 
+                  [page]="page" 
+                  [per_page]="per_page" 
+                  [total_reg]="total_reg"
+                  [page_list]="page_list"
+                  (evento_list_put)="onClickPutList($event)" 
+                  (evento_list_delete)="onClickDeleteList($event)"
+                  (evento_list_pagination)="onClickPagination($event)">
+  </app-list-notes>
 </div>
