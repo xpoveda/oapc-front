@@ -12,7 +12,8 @@ export class ListNotesComponent implements OnInit {
   @Input() page:                    number;
   @Input() per_page:                number;
   @Input() total_reg:               number;
-  @Input() page_list:               number;
+  @Input() page_list:               number[];
+  @Input() page_max:                number;
 
   @Output() evento_list_put:        EventEmitter<any> = new EventEmitter();
   @Output() evento_list_delete:     EventEmitter<any> = new EventEmitter();

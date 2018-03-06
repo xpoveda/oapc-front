@@ -19,9 +19,11 @@ export class Notes2Component implements OnInit {
   
   page:      number;
   per_page:  number;
+
   total_reg: number;
 
   page_list: number[];
+  page_max:  number;
 
   constructor( private AuthorizationService: AuthorizationService, 
                private NotesService        : NotesService, 
@@ -31,7 +33,7 @@ export class Notes2Component implements OnInit {
 
   ngOnInit() {
     this.page      = 1;
-    this.per_page  = 2;
+    this.per_page  = 4;
     this.total_reg = 0;
   }
 
@@ -96,7 +98,9 @@ export class Notes2Component implements OnInit {
 
                                   this.page_list = [];                                  
                                   for (let i=0; i<this.total_reg/this.per_page; i++)
-                                      this.page_list.push(i+1);
+                                      this.page_list.push(i + 1);
+
+                                  this.page_max = this.page_list.lastIndexOf(this.page_list.length) + 1;
 
                                   this.TrazaService.dato("NOTES", "API GETNOTESCOUNT OK", this.misnotes);
                                 },
