@@ -32,6 +32,7 @@ import { TrazaService }           from './services/traza.service';
 import { Notes2Component }        from './components/notes2/notes2.component';
 import { FormNotesComponent }     from './components/form-notes/form-notes.component';
 import { ListNotesComponent }     from './components/list-notes/list-notes.component';
+import { ButtonListNotesComponent } from './components/button-list-notes/button-list-notes.component';
 
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +51,8 @@ import { ListNotesComponent }     from './components/list-notes/list-notes.compo
     ModalNoteComponent,
     Notes2Component,
     FormNotesComponent,
-    ListNotesComponent
+    ListNotesComponent,
+    ButtonListNotesComponent
   ],
 
   entryComponents: [ModalNoteComponent],

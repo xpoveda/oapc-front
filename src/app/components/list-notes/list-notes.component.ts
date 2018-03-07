@@ -1,4 +1,6 @@
+
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Ipagination } from './../../interfaces/ipagination';
 
 @Component({
   selector: 'app-list-notes',
@@ -7,25 +9,15 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class ListNotesComponent implements OnInit {
 
-  @Input() elementos;
+  @Input() items;
 
-  @Input() page:                    number;
-  @Input() per_page:                number;
-  @Input() total_reg:               number;
-  @Input() page_list:               number[];
-  @Input() page_max:                number;
-
-  @Output() evento_list_put:        EventEmitter<any> = new EventEmitter();
-  @Output() evento_list_delete:     EventEmitter<any> = new EventEmitter();
-  @Output() evento_list_pagination: EventEmitter<any> = new EventEmitter();
+  @Output() evento_list_put:    EventEmitter<any> = new EventEmitter();
+  @Output() evento_list_delete: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
-
     console.log("LIST-COMPONENT");
-    console.log(this.page);
-    console.log(this.per_page);
   }
 
   actionPut($event)
@@ -38,10 +30,5 @@ export class ListNotesComponent implements OnInit {
   {
     console.log($event);
     this.evento_list_delete.emit($event);
-  }
-
-  actionPagination($event)
-  {
-    this.evento_list_pagination.emit($event);
   }
 }
