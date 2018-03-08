@@ -1,6 +1,6 @@
 <div *ngIf="pagination.total_items!=0;then content0 else else_content0"></div>
 <ng-template #content0>
-  <h2>BUTTON-LIST-COMPONENT</h2>
+  <h2>BUTTON-LIST-COMPONENT-PAGINATION {{pagination?.page_actual}}</h2>
   <nav aria-label="Page navigation example">
     <ul class="pagination">
 
@@ -23,7 +23,7 @@
       </ng-template>
 
 
-      <li *ngFor="let page_item of pagination.page_list" class="page-item">
+      <li *ngFor="let page_item of pagination.page_list" class="page-item" [ngClass]="{'active': pagination.page_actual==+page_item}">
         <a class="page-link" role="button" (click)="actionPagination(+page_item)">{{page_item}}</a>
       </li>
 
@@ -48,7 +48,5 @@
   </nav>
 
   {{pagination|json}}
-
-
 
 </ng-template>

@@ -15,10 +15,6 @@ export class ButtonListNotesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-
-    console.log("BUTTON-LIST-COMPONENT***");
-    console.log(this.pagination.page_actual);
-    console.log(this.pagination.page_items);
   }
 
   actionPagination($event)
