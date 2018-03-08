@@ -24,7 +24,7 @@
 
 
       <li *ngFor="let page_item of pagination.page_list" class="page-item">
-        <a class="page-link" role="button" (click)="actionPagination(page_item)">{{page_item}}</a>
+        <a class="page-link" role="button" (click)="actionPagination(+page_item)">{{page_item}}</a>
       </li>
 
       <div *ngIf="pagination.page_actual!=pagination.page_max;then content2 else else_content2"></div>
@@ -48,5 +48,7 @@
   </nav>
 
   {{pagination|json}}
+
+
 
 </ng-template>

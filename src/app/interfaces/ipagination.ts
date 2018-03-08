@@ -3,5 +3,5 @@ export interface Ipagination {
     page_max:    number;  
     page_items:  number;      
     total_items: number;  
-    page_list:   number[];
+    page_list:   string[];
 }
