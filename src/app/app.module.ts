@@ -14,25 +14,26 @@ import { AppComponent }           from './app.component';
 import { AppRoutingModule }       from './app-routing.module';
 
 import { HomeComponent }          from './components/home/home.component';
-import { HeaderComponent }        from './components/header/header.component';
-import { FooterComponent }        from './components/footer/footer.component';
-import { PageNotFoundComponent }  from './components/page-not-found/page-not-found.component';
-import { LoginComponent}          from './components/login/login.component';
-import { LogoutComponent }        from './components/logout/logout.component';
-import { NotesComponent }         from './components/notes/notes.component';
+import { HeaderComponent }          from './components/header/header.component';
+import { FooterComponent }          from './components/footer/footer.component';
+import { PageNotFoundComponent }    from './components/page-not-found/page-not-found.component';
+import { LoginComponent}            from './components/login/login.component';
+import { LogoutComponent }          from './components/logout/logout.component';
+import { NotesComponent }           from './components/notes/notes.component';
 
-import { ModalNoteComponent }     from './components/modal-note/modal-note.component';
+import { ModalNoteComponent }       from './components/modal-note/modal-note.component';
 
-import { ApiUrlConfigService }    from './services/api-url-config.service';
-import { AuthorizationService }   from './services/authorization.service';
-import { UserService }            from './services/user.service';
-import { NotesService }           from './services/notes.service';
-import { TrazaService }           from './services/traza.service';
+import { ApiUrlConfigService }      from './services/api-url-config.service';
+import { AuthorizationService }     from './services/authorization.service';
+import { UserService }              from './services/user.service';
+import { NotesService }             from './services/notes.service';
+import { TrazaService }             from './services/traza.service';
 
-import { Notes2Component }        from './components/notes2/notes2.component';
-import { FormNotesComponent }     from './components/form-notes/form-notes.component';
-import { ListNotesComponent }     from './components/list-notes/list-notes.component';
+import { Notes2Component }          from './components/notes2/notes2.component';
+import { FormNotesComponent }       from './components/form-notes/form-notes.component';
+import { ListNotesComponent }       from './components/list-notes/list-notes.component';
 import { ButtonListNotesComponent } from './components/button-list-notes/button-list-notes.component';
+import { MessageService }           from './services/message.service';
 
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +75,7 @@ import { ButtonListNotesComponent } from './components/button-list-notes/button-
     AuthorizationService, 
     UserService, 
     NotesService,
+    MessageService
   ],
 
   bootstrap: [AppComponent]

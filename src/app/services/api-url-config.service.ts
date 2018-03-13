@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 
   //////////////////////////////////////////////////////////////////////////////////////
@@ -21,8 +22,6 @@ export class ApiUrlConfigService {
   public _postNoteURL        = '/api/v1/notes/';
   public _putNoteURL         = '/api/v1/notes/';
   public _deleteNoteURL      = '/api/v1/notes/';
-
-  //////////////////////////////////////////////////////////////////////////////////////
 
   constructor() 
   { }

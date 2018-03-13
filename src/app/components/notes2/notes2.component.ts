@@ -28,6 +28,7 @@ export class Notes2Component implements OnInit {
   { }
 
   ngOnInit() {    
+
     this.pagination = new Pagination;
     
     this.pagination.page_actual = 1;

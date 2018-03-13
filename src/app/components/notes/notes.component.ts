@@ -1,9 +1,8 @@
-
-
+import { MessageService } from './../../services/message.service';
 import { Component, OnInit }         from '@angular/core';
 import { TemplateRef }               from '@angular/core';
 
-import { Observable }                from 'rxjs/Rx';
+import { Observable, Subscription }  from 'rxjs/Rx';
 
 import { BsModalService }            from 'ngx-bootstrap/modal';
 import { BsModalRef }                from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -27,8 +26,7 @@ import { ModalNoteComponent }        from '../modal-note/modal-note.component';
 })
 export class NotesComponent implements OnInit {
 
-  // islogged
-  private islogged;
+  public islogged: boolean;
 
   // interfaz de respuesta
   misnotes: NotesResponse[];
@@ -44,19 +42,15 @@ export class NotesComponent implements OnInit {
   constructor( private AuthorizationService: AuthorizationService, 
                private NotesService        : NotesService, 
                private TrazaService        : TrazaService,
-               private modalService        : BsModalService ) 
+               private modalService        : BsModalService,
+               private MessageService      : MessageService
+              ) 
   { }
 
-  ngOnInit() 
-  {
-    this.TrazaService.log("NOTES", "ngOnInit", "");
-    //setInterval( () => this.ftitulo =  '' + Math.random(), 1000);
-
-     Observable.interval(100).subscribe ( x => {
-      this.islogged  = this.AuthorizationService.is_logged();
-    });
+  ngOnInit() {
+      this.islogged = this.AuthorizationService.is_logged();
   }
-  
+
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////

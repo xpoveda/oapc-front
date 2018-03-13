@@ -1,23 +1,30 @@
+
 import { Injectable } from '@angular/core';
+
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
 
 @Injectable()
 export class TrazaService {
 
-  constructor() { }
+  constructor() 
+  { }
 
-  log(modulo: string, funcion: string, mensaje: any)
-  {
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  log(modulo: string, funcion: string, mensaje: any) {
     console.log("LOG" + " " + modulo + " " + funcion + " " + mensaje);
   }
 
-  dato(modulo: string, funcion: string, mensaje: any)
-  {
+  dato(modulo: string, funcion: string, mensaje: any) {
     console.log("DATO" + " " + modulo + " " + funcion);
     console.log(mensaje);
   }
 
-  error(modulo: string, funcion: string, mensaje: any)
-  {
+  error(modulo: string, funcion: string, mensaje: any) {
     console.log("ERROR" + " " + modulo + " " + funcion);
     console.log(mensaje);
   }

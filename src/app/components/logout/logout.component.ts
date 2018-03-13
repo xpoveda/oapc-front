@@ -1,10 +1,13 @@
-
 import { Component, OnInit }     from '@angular/core';
 import { Router }                from '@angular/router';
 
 import { AuthorizationService }  from '../../services/authorization.service';
 import { TrazaService }          from '../../services/traza.service';
+import { MessageService }        from './../../services/message.service';
 
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////
 
 @Component({
   selector: 'app-logout',
@@ -16,25 +19,23 @@ export class LogoutComponent implements OnInit {
 
   constructor( private router               : Router,
                private AuthorizationService : AuthorizationService,
-               private TrazaService         : TrazaService ) 
+               private TrazaService         : TrazaService,
+               private MessageService       : MessageService
+              ) 
   { }
 
-  ngOnInit() 
-  { 
-    this.TrazaService.log("LOGOUT", "ngOnInit", "");
+  ngOnInit() {
     this.logout();
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////
 
+  logout() {
+    if (this.AuthorizationService.is_logged()) {
 
-  logout()
-  {
-    if (this.AuthorizationService.is_logged())
-    {
       this.AuthorizationService.logout();
+      this.MessageService.logout();
+
       this.router.navigateByUrl("/login");
     }
   }

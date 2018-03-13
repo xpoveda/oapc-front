@@ -30,8 +30,8 @@
             <li class="active"><a routerLink="/notes">Notes<span class="sr-only">(current)</span></a></li>
             <li class="active"><a routerLink="/notes2">Notes2<span class="sr-only">(current)</span></a></li>
 
-            <li><a *ngIf="!islogged" routerLink="/login">Login</a></li>
-            <li><a *ngIf="islogged" routerLink="/logout">Logout</a></li>
+            <li><a *ngIf="!(islogged)" routerLink="/login">Login</a></li>
+            <li><a *ngIf="(islogged)"  routerLink="/logout">Logout</a></li>
             
             <li class="dropdown" dropdown>
                 <a href="javascript:void(0)" dropdownToggle class="dropdown-toggle">Opciones A <span class="caret"></span></a>

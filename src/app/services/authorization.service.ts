@@ -34,95 +34,83 @@ export class AuthorizationService {
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
-  login(user: string, pass: string): Observable<TokenResponse> 
-  {
+  login(user: string, pass: string): Observable<TokenResponse> {
     return this.http.post(this.ApiUrlConfigService._loginURL,
-                          { "username": user, "password": pass },
-                          { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
-                    .map(respuesta => respuesta)
-                    .catch((error: any) => Observable.throw(error));
+      { "username": user, "password": pass },
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) })
+      .map(respuesta => respuesta)
+      .catch((error: any) => Observable.throw(error));
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  logout() 
-  {
-    //this.TrazaService.log("AUTHSERVICE", "logout", "USUARIO DESCONECTADO");
+  whoami(): Observable<any> {
+    return this.http.get(this.ApiUrlConfigService._whoamiURL,
+      this.header_token())
+      .map(respuesta => respuesta)
+      .catch((error: any) => Observable.throw(error));
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  refresh(): Observable<TokenResponse> {
+    return this.http.post(this.ApiUrlConfigService._refreshURL,
+      {},
+      this.header_token())
+      .map(respuesta => respuesta)
+      .catch((error: any) => Observable.throw(error));
+  }
+
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  change_password(oldpass: string, newpass: string): Observable<any> {
+    return this.http.post(this.ApiUrlConfigService._change_passwordURL,
+      { "oldPassword": oldpass, "newPassword": newpass },
+      this.header_token())
+      .map(respuesta => respuesta)
+      .catch((error: any) => Observable.throw(error));
+  }
+  
+  //////////////////////////////////////////////////////////////////////////////////////
+
+  logout() {
     localStorage.removeItem('USER');
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
-
-  whoami(): Observable<any> 
-  {
-    return this.http.get(this.ApiUrlConfigService._whoamiURL,
-                         this.header_token())
-                    .map(respuesta => respuesta)
-                    .catch((error: any) => Observable.throw(error));
-  }
-
-  //////////////////////////////////////////////////////////////////////////////////////
-
-  refresh(): Observable<TokenResponse> 
-  {
-    return this.http.post(this.ApiUrlConfigService._refreshURL,
-                          {},
-                          this.header_token())
-                    .map(respuesta => respuesta)
-                    .catch((error: any) => Observable.throw(error));
-  }
-
-  //////////////////////////////////////////////////////////////////////////////////////
-
-  change_password(oldpass: string, newpass: string): Observable<any> 
-  {
-    return this.http.post(this.ApiUrlConfigService._change_passwordURL,
-                          { "oldPassword": oldpass, "newPassword": newpass },
-                          this.header_token())
-                      .map(respuesta => respuesta)
-                      .catch((error: any) => Observable.throw(error));
-  }
-
-  //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
-  is_logged() 
-  {
+  is_logged() {
     if (localStorage.getItem('USER')) {
-      //this.TrazaService.log("AUTHSERVICE", "islogged", "USUARIO CONECTADO");
       return true;
     }
     else {
-      //this.TrazaService.log("AUTHSERVICE", "islogged", "USUARIO NO CONECTADO");
       return false;
     }
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  header_token() 
-  {
-    if (this.is_logged())
-    {
+  header_token() {
+    if (this.is_logged()) {
       this.myuser = JSON.parse(localStorage.getItem("USER"));
 
       return {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + this.myuser.token })
+          'Authorization': 'Bearer ' + this.myuser.token
+        })
       };
     }
     else
       return null;
   }
-  
+
   //////////////////////////////////////////////////////////////////////////////////////
 
-  user_name():string
-  {
-    if (this.is_logged())
-    {
+  user_name(): string {
+    if (this.is_logged()) {
       this.myuser = JSON.parse(localStorage.getItem("USER"));
       return (this.myuser.firstname + " " + this.myuser.lastname);
     }
