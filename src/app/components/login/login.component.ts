@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
 
         this.miusuario = { "user": user, "firstname": "", "lastname": "", "token": this.mitoken.access_token };
         localStorage.setItem("USER", JSON.stringify(this.miusuario));
+
+        //https://github.com/xpoveda/oapc/blob/master/docs/multinotificacion_asincrona_entre_controles.pdf
         this.MessageService.login();
 
         this.router.navigateByUrl("/");

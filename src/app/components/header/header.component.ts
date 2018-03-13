@@ -34,6 +34,7 @@ export class HeaderComponent implements OnInit {
   { }
 
   ngOnInit() {
+    // https://github.com/xpoveda/oapc/blob/master/docs/multinotificacion_asincrona_entre_controles.pdf
     // https://github.com/angular/angular/issues/17572
     this.subscription = this.MessageService.obs_islogged$.subscribe(
       islogged => setTimeout(() => this.islogged = islogged, 0)

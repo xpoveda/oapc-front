@@ -34,6 +34,8 @@ export class LogoutComponent implements OnInit {
     if (this.AuthorizationService.is_logged()) {
 
       this.AuthorizationService.logout();
+
+      //https://github.com/xpoveda/oapc/blob/master/docs/multinotificacion_asincrona_entre_controles.pdf
       this.MessageService.logout();
 
       this.router.navigateByUrl("/login");
