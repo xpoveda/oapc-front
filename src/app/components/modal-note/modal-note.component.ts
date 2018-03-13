@@ -20,9 +20,9 @@ import { Subject }                  from 'rxjs';
 
 export class ModalNoteComponent implements  OnInit  {
 
-  title         : string;
-  closeBtnName  : string;
-  list          : any[] = [];
+  titulo         : string;
+  lista          : any[] = [];
+  botonCerrar    : string;
 
   datos_entrada : string;
   datos_salida  : string;
@@ -41,8 +41,8 @@ export class ModalNoteComponent implements  OnInit  {
   //////////////////////////////////////////////////////////////////////////////////////
 
   public onConfirm(form) {
-    console.log("ON CONFIRM");
-    console.log(form);
+    //console.log("ON CONFIRM");
+    //console.log(form);
     
     this.datos_salida = "DATOS SALIDA ON CONFIRM";
     this.onClose.next(true);
@@ -50,14 +50,15 @@ export class ModalNoteComponent implements  OnInit  {
     this.bsModalRef.hide();
   }
 
+  //////////////////////////////////////////////////////////////////////////////////////
+
   public onCancel(form) {
-    console.log("ON CANCEL");    
-    console.log(form);
+    //console.log("ON CANCEL");    
+    //console.log(form);
     
     this.datos_salida = "DATOS SALIDA ON CANCEL";
     this.onClose.next(false);
 
     this.bsModalRef.hide();
   }
-
 }
