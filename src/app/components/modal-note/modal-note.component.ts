@@ -1,5 +1,8 @@
 import { Component, OnInit }        from '@angular/core';
+
 import { BsModalRef }               from "ngx-bootstrap";
+
+import { Subject }                  from 'rxjs';
 
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
@@ -17,25 +20,44 @@ import { BsModalRef }               from "ngx-bootstrap";
 
 export class ModalNoteComponent implements  OnInit  {
 
-  title        : string;
-  closeBtnName : string;
-  list         : any[] = [];
+  title         : string;
+  closeBtnName  : string;
+  list          : any[] = [];
+
+  datos_entrada : string;
+  datos_salida  : string;
+
+  public onClose: Subject<boolean>;
  
   constructor(public bsModalRef: BsModalRef) 
   { }
  
   ngOnInit() {
-    this.list.push('FALTA IMPLEMENTAR');
+    this.onClose = new Subject();
   }
 
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
-  actionPutNote(form) {
-    //this.putNote(1,"modificada primera nota","otro campo");
-
+  public onConfirm(form) {
+    console.log("ON CONFIRM");
     console.log(form);
-    this.bsModalRef.hide()
+    
+    this.datos_salida = "DATOS SALIDA ON CONFIRM";
+    this.onClose.next(true);
+    
+    this.bsModalRef.hide();
   }
+
+  public onCancel(form) {
+    console.log("ON CANCEL");    
+    console.log(form);
+    
+    this.datos_salida = "DATOS SALIDA ON CANCEL";
+    this.onClose.next(false);
+
+    this.bsModalRef.hide();
+  }
+
 }
