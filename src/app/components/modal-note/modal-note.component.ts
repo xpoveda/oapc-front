@@ -18,14 +18,14 @@ import { Subject }                  from 'rxjs';
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
-export class ModalNoteComponent implements  OnInit  {
+export class ModalNoteComponent implements  OnInit {
 
   titulo         : string;
   lista          : any[] = [];
   botonCerrar    : string;
 
-  datos_entrada : string;
-  datos_salida  : string;
+  datos         : any;
+  dato1         : string;
 
   public onClose: Subject<boolean>;
  
@@ -35,16 +35,12 @@ export class ModalNoteComponent implements  OnInit  {
   ngOnInit() {
     this.onClose = new Subject();
   }
-
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////
 
-  public onConfirm(form) {
-    //console.log("ON CONFIRM");
-    //console.log(form);
-    
-    this.datos_salida = "DATOS SALIDA ON CONFIRM";
+  public onConfirm(form) {    
+    //this.dato1 = "DATO1 SALIDA ON CONFIRM";
     this.onClose.next(true);
     
     this.bsModalRef.hide();
@@ -52,11 +48,8 @@ export class ModalNoteComponent implements  OnInit  {
 
   //////////////////////////////////////////////////////////////////////////////////////
 
-  public onCancel(form) {
-    //console.log("ON CANCEL");    
-    //console.log(form);
-    
-    this.datos_salida = "DATOS SALIDA ON CANCEL";
+  public onCancel(form) {    
+    //this.dato1 = "DATO1 SALIDA ON CANCEL";
     this.onClose.next(false);
 
     this.bsModalRef.hide();

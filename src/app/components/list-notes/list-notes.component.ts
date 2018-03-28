@@ -46,10 +46,12 @@ export class ListNotesComponent implements OnInit {
       botonCerrar: "Cerrar"  
     };
 
+    
     this.bsModalRef = this.modalService.show(ModalNoteComponent, {initialState});
 
     // Pass in data directly content atribute after show
-    this.bsModalRef.content.datos_entrada = JSON.stringify(item);
+    this.bsModalRef.content.datos = item;
+    this.bsModalRef.content.dato1 = item.title;
 
     // Get out
     this.bsModalRef.content.onClose
@@ -64,14 +66,17 @@ export class ListNotesComponent implements OnInit {
 
   actionPutYES(){
     console.log("ACTION PUT YES")
-    console.log(this.bsModalRef.content.datos_salida);
+    console.log(this.bsModalRef.content.datos);
+    console.log(this.bsModalRef.content.dato1);
+
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////
 
   actionPutNO(){
     console.log("ACTION NO PUT")
-    console.log(this.bsModalRef.content.datos_salida);
+    console.log(this.bsModalRef.content.datos);    
+    console.log(this.bsModalRef.content.dato1);
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////

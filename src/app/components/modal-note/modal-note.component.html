@@ -17,9 +17,8 @@
       <form #formulario="ngForm" (ngSubmit)="onConfirm(formulario)">
 
           <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={{list}}>
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="exampleInputEmail1">{{datos | json}}</label>
+            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder={{list}} name="dato1" [(ngModel)]="dato1">            
           </div>
 
           <div class="form-group">
@@ -29,7 +28,7 @@
 
           <div class="form-group">
             <label for="exampleTextarea">Example textarea</label>
-            <textarea class="form-control" id="exampleTextarea" rows="3">{{datos_entrada}}</textarea>
+            <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>
