@@ -16,3 +16,21 @@ Añadidos Pol
 https://github.com/ezendirak/Base-OAPC-Front
 https://github.com/ezendirak/Base-OAPC-Server
 ```
+
+```
+ng build --env=prod
+```
+```
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+
+    # Don't rewrite files or directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Rewrite everything else to index.html
+    # to allow html5 state links
+    RewriteRule ^ index.html [L]
+</IfModule>
+```
