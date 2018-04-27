@@ -6,20 +6,17 @@
            \/|__|        \/                                    \/      
 ```
 
+Pruebas
+-------
 Despues de descargar `npm install`.
 
 Para ejecutar `npm start`.
 
 
-Añadidos Pol
-```
-https://github.com/ezendirak/Base-OAPC-Front
-https://github.com/ezendirak/Base-OAPC-Server
-```
+Producción
+-----------
+Generación mediante `ng build --env=prod` y copia de `dist` a DocumentRoot
 
-```
-ng build --env=prod
-```
 ```
 <IfModule mod_rewrite.c>
     RewriteEngine on
