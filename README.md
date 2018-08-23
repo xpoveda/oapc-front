@@ -7,7 +7,7 @@
 ```
 
 Pruebas
--------
+--------
 Despues de descargar `npm install`.
 
 Para ejecutar `npm start`.
